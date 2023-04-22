@@ -5,7 +5,6 @@ using UnityEngine;
 public class ShipBuilder : MonoBehaviour
 {
     public GameObject shipPrefab;
-    
     // Start is called before the first frame update
     void Start()
     {
