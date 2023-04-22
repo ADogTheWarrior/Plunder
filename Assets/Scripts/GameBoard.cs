@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class GameBoard : MonoBehaviour
 {
+    [Header("Art stuff")]
+    [SerializeField] private Material tileMaterial;
+
+    //Logic
     private const int TILE_COUNT_X = 20;
     private const int TILE_COUNT_Y = 20;
     private GameObject[,] tiles;
@@ -29,7 +33,7 @@ public class GameBoard : MonoBehaviour
 
         Mesh mesh = new Mesh();
         tileObject.AddComponent<MeshFilter>().mesh = mesh;
-        tileObject.AddComponent<MeshRenderer>();
+        tileObject.AddComponent<MeshRenderer>().material = tileMaterial;
 
         Vector3[] vertices = new Vector3[4];
         vertices[0] = new Vector3(x * tileSize, 0, y * tileSize);
@@ -41,6 +45,8 @@ public class GameBoard : MonoBehaviour
 
         mesh.vertices = vertices;
         mesh.triangles = tris;
+
+        mesh.RecalculateNormals();
 
         tileObject.AddComponent<BoxCollider>();
         
