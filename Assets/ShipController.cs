@@ -20,9 +20,9 @@ public class ShipController : MonoBehaviour
         var path = (Destination - this.transform.position);
         if (path.magnitude > .01)
         {
-            Vectorthis.transform.orientation 
-            // var move = Vector3.Normalize(path) * Time.deltaTime * 5;
-            // this.transform.Translate(move, Space.World);
+            // Vectorthis.transform.orientation 
+            var move = Vector3.Normalize(path) * Time.deltaTime * 5;
+            this.transform.Translate(move, Space.World);
         }
         
         ray = Camera.main.ScreenPointToRay(Input.mousePosition);
