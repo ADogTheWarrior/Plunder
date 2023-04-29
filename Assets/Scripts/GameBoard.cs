@@ -5,17 +5,36 @@ using UnityEngine;
 public class GameBoard : MonoBehaviour
 {
     [Header("Art stuff")]
-    [SerializeField] private Material tileMaterial;
+    [SerializeField] private Material waterTileMaterial;
+    [SerializeField] private Material landTileMaterial;
+    [SerializeField] private Material coveTileMaterial;
 
     //Logic
     private const int TILE_COUNT_X = 20;
     private const int TILE_COUNT_Y = 20;
     private GameObject[,] tiles;
 
+    public const int TILE_SIZE = 20;
+    //0 is water
+    //1 is land
+    //2 is cove
+    public int[,] BOARDSTATE = {
+        {0,0,0,0,0,0,0,0,0,0},
+        {0,1,1,0,0,0,1,1,0,0},
+        {0,2,1,0,0,0,1,2,0,0},
+        {0,0,0,0,0,0,0,0,0,0},
+        {0,0,1,1,1,0,0,0,0,0},
+        {0,0,1,2,1,0,0,2,0,0},
+        {0,0,0,0,0,0,0,1,0,0},
+        {0,0,0,0,0,0,0,1,0,0},
+        {0,0,0,0,1,0,0,0,0,0},
+        {0,0,0,0,1,2,0,0,0,0}
+    };
+
     //starts when the script is first run, kinda like a singleton
     //void Start runs on each object the script is attached to
     private void Awake(){
-        GenerateAllTiles(1, TILE_COUNT_X, TILE_COUNT_Y);
+        GenerateAllTiles(TILE_SIZE, TILE_COUNT_X, TILE_COUNT_Y);
     }
 
     private void GenerateAllTiles(float tileSize, int tileCountX, int tileCountY){
@@ -33,13 +52,13 @@ public class GameBoard : MonoBehaviour
 
         Mesh mesh = new Mesh();
         tileObject.AddComponent<MeshFilter>().mesh = mesh;
-        tileObject.AddComponent<MeshRenderer>().material = tileMaterial;
+        tileObject.AddComponent<MeshRenderer>().material = waterTileMaterial;
 
         Vector3[] vertices = new Vector3[4];
-        vertices[0] = new Vector3(x * tileSize, 0, y * tileSize);
-        vertices[1] = new Vector3(x * tileSize, 0, (y+1) * tileSize);
-        vertices[2] = new Vector3((x+1) * tileSize, 0, y * tileSize);
-        vertices[3] = new Vector3((x+1) * tileSize, 0, (y+1) * tileSize);
+        vertices[0] = new Vector3(x * tileSize, 1, y * tileSize);
+        vertices[1] = new Vector3(x * tileSize, 1, (y+1) * tileSize);
+        vertices[2] = new Vector3((x+1) * tileSize, 1, y * tileSize);
+        vertices[3] = new Vector3((x+1) * tileSize, 1, (y+1) * tileSize);
 
         int[] tris = new int[] {0, 1, 2, 1, 3, 2};
 

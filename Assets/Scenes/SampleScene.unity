@@ -230,7 +230,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13449fb4e6af8c4429b4e5ddb00cfbf4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileMaterial: {fileID: 2100000, guid: d112be1d80b455444b1d1484e0d5dbb1, type: 2}
+  waterTileMaterial: {fileID: 2100000, guid: d112be1d80b455444b1d1484e0d5dbb1, type: 2}
+  landTileMaterial: {fileID: 0}
+  coveTileMaterial: {fileID: 0}
 --- !u!4 &338579946
 Transform:
   m_ObjectHideFlags: 0
