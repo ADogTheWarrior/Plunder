@@ -10,8 +10,8 @@ public class GameBoard : MonoBehaviour
     [SerializeField] private Material waterTileMaterial;
 
     //Logic
-    private const int TILE_COUNT_X = 10;
-    private const int TILE_COUNT_Y = 10;
+    private const int TILE_COUNT_X = 18;
+    private const int TILE_COUNT_Y = 12;
     private GameObject[,] tiles;
 
     public const int TILE_SIZE = 50;
@@ -19,16 +19,18 @@ public class GameBoard : MonoBehaviour
     //1 is land
     //2 is cove
     public int[,] BOARDSTATE = {
-        {0,1,0,0,0,0,0,0,0,0},
-        {0,1,1,0,0,0,1,1,0,0},
-        {0,2,1,0,0,0,1,2,0,0},
-        {0,0,0,0,0,0,0,0,0,0},
-        {1,0,1,1,1,0,0,0,0,0},
-        {0,0,1,2,1,0,0,2,0,0},
-        {0,0,0,0,0,0,0,1,0,0},
-        {0,0,0,0,0,0,0,1,0,0},
-        {0,0,0,0,1,0,0,0,0,0},
-        {0,0,0,0,1,2,0,0,0,0}
+        {0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+        {0,1,1,0,0,0,1,1,0,0,0,0,0,0,2,0,0,0},
+        {0,2,1,0,0,0,1,2,0,0,0,0,0,1,1,0,0,0},
+        {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+        {1,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0},
+        {0,0,1,2,1,0,0,2,0,0,0,0,1,2,0,0,0,0},
+        {0,0,0,0,0,0,0,1,0,0,0,0,1,1,0,0,0,0},
+        {0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0},
+        {0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,1,2,0,0,0,0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0}
     };
 
     //starts when the script is first run, kinda like a singleton
