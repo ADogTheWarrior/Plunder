@@ -5,25 +5,25 @@ using UnityEngine;
 public class GameBoard : MonoBehaviour
 {
     [Header("Art stuff")]
-    [SerializeField] private Material waterTileMaterial;
-    [SerializeField] private Material landTileMaterial;
     [SerializeField] private Material coveTileMaterial;
+    [SerializeField] private Material landTileMaterial;
+    [SerializeField] private Material waterTileMaterial;
 
     //Logic
-    private const int TILE_COUNT_X = 20;
-    private const int TILE_COUNT_Y = 20;
+    private const int TILE_COUNT_X = 10;
+    private const int TILE_COUNT_Y = 10;
     private GameObject[,] tiles;
 
-    public const int TILE_SIZE = 20;
+    public const int TILE_SIZE = 50;
     //0 is water
     //1 is land
     //2 is cove
     public int[,] BOARDSTATE = {
-        {0,0,0,0,0,0,0,0,0,0},
+        {0,1,0,0,0,0,0,0,0,0},
         {0,1,1,0,0,0,1,1,0,0},
         {0,2,1,0,0,0,1,2,0,0},
         {0,0,0,0,0,0,0,0,0,0},
-        {0,0,1,1,1,0,0,0,0,0},
+        {1,0,1,1,1,0,0,0,0,0},
         {0,0,1,2,1,0,0,2,0,0},
         {0,0,0,0,0,0,0,1,0,0},
         {0,0,0,0,0,0,0,1,0,0},
@@ -52,7 +52,22 @@ public class GameBoard : MonoBehaviour
 
         Mesh mesh = new Mesh();
         tileObject.AddComponent<MeshFilter>().mesh = mesh;
-        tileObject.AddComponent<MeshRenderer>().material = waterTileMaterial;
+
+        switch(BOARDSTATE[y,x]) 
+        {
+        case 0: // water
+            tileObject.AddComponent<MeshRenderer>().material = waterTileMaterial;
+            break;
+        case 1: // land
+            tileObject.AddComponent<MeshRenderer>().material = landTileMaterial;
+            break;
+        case 2: // cove
+            tileObject.AddComponent<MeshRenderer>().material = coveTileMaterial;
+            break;
+        default: // default water
+            tileObject.AddComponent<MeshRenderer>().material = waterTileMaterial;
+            break;
+        }
 
         Vector3[] vertices = new Vector3[4];
         vertices[0] = new Vector3(x * tileSize, 1, y * tileSize);
