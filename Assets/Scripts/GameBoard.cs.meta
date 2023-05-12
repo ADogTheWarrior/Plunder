@@ -3,7 +3,10 @@ guid: 13449fb4e6af8c4429b4e5ddb00cfbf4
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - coveTileMaterial: {fileID: 2100000, guid: 484ef07273a67a44f96f7c421a1757e1, type: 2}
+  - landTileMaterial: {instanceID: 0}
+  - waterTileMaterial: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

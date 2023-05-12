@@ -66,7 +66,7 @@ public class GameBoard : MonoBehaviour
         case 2: // cove
             tileObject.AddComponent<MeshRenderer>().material = coveTileMaterial;
             break;
-        default: // default water
+        default: // default to water
             tileObject.AddComponent<MeshRenderer>().material = waterTileMaterial;
             break;
         }
