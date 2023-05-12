@@ -5,8 +5,8 @@ MonoImporter:
   serializedVersion: 2
   defaultReferences:
   - coveTileMaterial: {fileID: 2100000, guid: 484ef07273a67a44f96f7c421a1757e1, type: 2}
-  - landTileMaterial: {instanceID: 0}
-  - waterTileMaterial: {instanceID: 0}
+  - landTileMaterial: {fileID: 2100000, guid: 163e5bcd343cc22478168744fbd9596a, type: 2}
+  - waterTileMaterial: {fileID: 2100000, guid: 1fc94cb33ddcee34b97c115d9382fea1, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -13,6 +13,8 @@ public class GameBoard : MonoBehaviour
     private const int TILE_COUNT_X = 18;
     private const int TILE_COUNT_Y = 12;
     private GameObject[,] tiles;
+    private Camera currentCamera;
+    private Vector2Int currentHover;
 
     public const int TILE_SIZE = 50;
     //0 is water
@@ -29,7 +31,7 @@ public class GameBoard : MonoBehaviour
         {0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0},
         {0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0},
         {0,0,0,0,1,2,0,0,0,0,0,0,0,0,0,0,0,0},
-        {0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0,0,1,0,0,2,0,0,0,0},
         {0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0}
     };
 
@@ -37,6 +39,40 @@ public class GameBoard : MonoBehaviour
     //void Start runs on each object the script is attached to
     private void Awake(){
         GenerateAllTiles(TILE_SIZE, TILE_COUNT_X, TILE_COUNT_Y);
+    }
+
+    private void Update(){
+        if (!currentCamera) {
+            currentCamera = Camera.main;
+            return;
+        }
+
+        RaycastHit info;
+        Ray ray = currentCamera.ScreenPointToRay(Input.mousePosition);
+        if(Physics.Raycast(ray, out info, 100, LayerMask.GetMask("Tile"))){
+            //get the indexes of the tile i've hit
+            Vector2Int hitPosition = LookupTileIndex(info.transform.gameObject);
+
+            //If we're hovering a tile after not hovering any tiles
+            if (currentHover == -Vector2Int.one) {
+                currentHover = hitPosition;
+                tiles[hitPosition.x, hitPosition.y].layer = LayerMask.NameToLayer("Hover");
+            }
+
+            //If we were already hovering a tile, change the previous one
+            if (currentHover != hitPosition)
+            {
+                tiles[currentHover.x, currentHover.y].layer = LayerMask.NameToLayer("Tile");
+                currentHover = hitPosition;
+                tiles[hitPosition.x, hitPosition.y].layer = LayerMask.NameToLayer("Hover");
+            }
+        }
+        else { 
+            if(currentHover != -Vector2Int.one) {
+                tiles[currentHover.x, currentHover.y].layer = LayerMask.NameToLayer("Tile");
+                currentHover = -Vector2Int.one;
+            }
+        }
     }
 
     private void GenerateAllTiles(float tileSize, int tileCountX, int tileCountY){
@@ -82,10 +118,22 @@ public class GameBoard : MonoBehaviour
         mesh.vertices = vertices;
         mesh.triangles = tris;
 
+        tileObject.layer = LayerMask.NameToLayer("Tile");
         mesh.RecalculateNormals();
 
         tileObject.AddComponent<BoxCollider>();
         
         return tileObject;
+    }
+
+    private Vector2Int LookupTileIndex(GameObject hitInfo){
+        for (int x = 0; x < TILE_COUNT_X; x++){
+            for (int y = 0; y < TILE_COUNT_Y; y++){
+                if(tiles[x,y] == hitInfo){
+                    return new Vector2Int(x, y);
+                }
+            }
+        }
+        return -Vector2Int.one; //Invalid
     }
 }

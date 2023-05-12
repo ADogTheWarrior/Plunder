@@ -15,19 +15,19 @@ public class CameraController : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            this.transform.Translate(new Vector3(-10, 0, 0) * Time.deltaTime, Space.World);
+            this.transform.Translate(new Vector3(-50, 0, 0) * Time.deltaTime, Space.World);
         }
         if (Input.GetKey(KeyCode.RightArrow))
         {
-            this.transform.Translate(new Vector3(10, 0, 0) * Time.deltaTime, Space.World);
+            this.transform.Translate(new Vector3(50, 0, 0) * Time.deltaTime, Space.World);
         }
         if (Input.GetKey(KeyCode.UpArrow))
         {
-            this.transform.Translate(new Vector3(0, 0, 10) * Time.deltaTime, Space.World);
+            this.transform.Translate(new Vector3(0, 0, 50) * Time.deltaTime, Space.World);
         }
         if (Input.GetKey(KeyCode.DownArrow))
         {
-            this.transform.Translate(new Vector3(0, 0, -10) * Time.deltaTime, Space.World);
+            this.transform.Translate(new Vector3(0, 0, -50) * Time.deltaTime, Space.World);
         } 
     }
 }
