@@ -14,7 +14,7 @@ public class GameBoard : MonoBehaviour
     private const int TILE_COUNT_Y = 12;
     private GameObject[,] tiles;
     private Camera currentCamera;
-    private Vector2Int currentHover;
+    private Vector2Int currentHover = -Vector2Int.one;
 
     public const int TILE_SIZE = 50;
     //0 is water
@@ -38,6 +38,7 @@ public class GameBoard : MonoBehaviour
     //starts when the script is first run, kinda like a singleton
     //void Start runs on each object the script is attached to
     private void Awake(){
+        Debug.Log("test awake");
         GenerateAllTiles(TILE_SIZE, TILE_COUNT_X, TILE_COUNT_Y);
     }
 
@@ -55,6 +56,8 @@ public class GameBoard : MonoBehaviour
 
             //If we're hovering a tile after not hovering any tiles
             if (currentHover == -Vector2Int.one) {
+                Debug.Log("currentHover == -Vector2Int.one");
+                Debug.Log("hitPosition= "+hitPosition);
                 currentHover = hitPosition;
                 tiles[hitPosition.x, hitPosition.y].layer = LayerMask.NameToLayer("Hover");
             }
@@ -62,13 +65,18 @@ public class GameBoard : MonoBehaviour
             //If we were already hovering a tile, change the previous one
             if (currentHover != hitPosition)
             {
+                Debug.Log("currentHover != hitPosition");
+                Debug.Log("currentHover= "+currentHover);
+                Debug.Log("hitPosition= "+hitPosition);
                 tiles[currentHover.x, currentHover.y].layer = LayerMask.NameToLayer("Tile");
                 currentHover = hitPosition;
                 tiles[hitPosition.x, hitPosition.y].layer = LayerMask.NameToLayer("Hover");
             }
         }
-        else { 
+        else {
             if(currentHover != -Vector2Int.one) {
+                Debug.Log("currentHover != -Vector2Int.one");
+                Debug.Log("currentHover= "+currentHover);
                 tiles[currentHover.x, currentHover.y].layer = LayerMask.NameToLayer("Tile");
                 currentHover = -Vector2Int.one;
             }
@@ -129,6 +137,9 @@ public class GameBoard : MonoBehaviour
     private Vector2Int LookupTileIndex(GameObject hitInfo){
         for (int x = 0; x < TILE_COUNT_X; x++){
             for (int y = 0; y < TILE_COUNT_Y; y++){
+                if(hitInfo == null){
+                    Debug.Log("hitInfo == null");
+                }
                 if(tiles[x,y] == hitInfo){
                     return new Vector2Int(x, y);
                 }
